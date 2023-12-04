@@ -143,6 +143,10 @@ dateOfBirth: {
     trim: true,
   },
   isActive: { type: String, enum: ['active', 'blocked'], default: 'active' },
+  isDeleted:{
+    type:Boolean,
+    default:false,
+  }
 });
 
 
@@ -161,6 +165,21 @@ studentSchema.post('save',function(doc,next){
   doc.password=""
   next();
 
+})
+
+
+// query middleware
+studentSchema.pre('find',function(next){
+  this.find({isDeleted:{$ne:true}});
+  next();
+})
+studentSchema.pre('findOne',function(next){
+  this.find({isDeleted:{$ne:true}});
+  next();
+})
+studentSchema.pre('aggregate',function(next){
+  this.pipeline().unshift({$match:{isDeleted:{$ne:true}}});
+  next();
 })
 
 
