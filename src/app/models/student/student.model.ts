@@ -147,7 +147,17 @@ dateOfBirth: {
     type:Boolean,
     default:false,
   }
+},{
+  toJSON:{
+    virtuals:true,
+  }
 });
+
+
+// virtuals
+studentSchema.virtual('Full Name').get(function(){
+  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
+})
 
 
 // pre save middleWare/ hook: will work on save(), create()
