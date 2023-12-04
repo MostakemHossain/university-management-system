@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-this-alias */
+import bcrypt from "bcrypt";
 import { model, Schema } from 'mongoose';
+import config from "../../config";
 import {
   studentModel,
   TGuardian,
@@ -80,7 +83,8 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 });
 
 const studentSchema = new Schema<TStudent,studentModel>({
-  id: { type: String, required: true, unique: true },
+  id: { type: String, required: [true,"ID is Required"], unique: true },
+  password: { type: String, required: [true,"password is Required"],maxlength:[20,'Password cannot be more then 20 characters'] },
   name: { type: userNameSchema, required: true },
   gender: {
     type: String,
@@ -142,6 +146,26 @@ dateOfBirth: {
 });
 
 
+// pre save middleWare/ hook: will work on save(), create()
+
+studentSchema.pre('save',async function(next){
+
+  // hasing password and save into db
+
+  this.password= await bcrypt.hash(this.password,Number(config.bcrypt_salt_rounds));
+  
+  next();
+  
+})
+studentSchema.post('save',function(doc,next){
+  doc.password=""
+  next();
+
+})
+
+
+
+
 
 // creating a custom instance method
 // studentSchema.methods.isUserExists= async function(id:string){
@@ -155,6 +179,8 @@ studentSchema.statics.isUserExists= async function(id:string){
     const existingUser= await Student.findOne({id});
     return existingUser;
   }
+
+
 
 
 
