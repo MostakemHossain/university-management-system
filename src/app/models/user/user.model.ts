@@ -1,4 +1,6 @@
+import bcrypt from "bcrypt";
 import { model, Schema } from 'mongoose';
+import config from "../../config";
 import { TUser } from './user.interface';
 
 const userSchema = new Schema<TUser>(
@@ -13,7 +15,6 @@ const userSchema = new Schema<TUser>(
     },
     needsPasswordChange: {
       type: Boolean,
-      required: true,
     },
     role: {
       type: String,
@@ -22,6 +23,7 @@ const userSchema = new Schema<TUser>(
     status: {
       type: String,
       enum: ['in-progress', 'blocked'],
+      default:'in-progress',
     },
     isDeleted: {
       type: Boolean,
@@ -32,5 +34,23 @@ const userSchema = new Schema<TUser>(
     timestamps: true,
   },
 );
+
+
+// pre save middleWare/ hook: will work on save(), create()
+
+userSchema.pre('save', async function (next) {
+  // hasing password and save into db
+
+  this.password = await bcrypt.hash(
+    this.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+
+  next();
+});
+userSchema.post('save', function (doc, next) {
+  doc.password = '';
+  next();
+});
 
 export const User = model<TUser>('User', userSchema);
