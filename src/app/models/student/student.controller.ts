@@ -7,7 +7,8 @@ const createStudent = async (req: Request, res: Response) => {
     const { student: StudentData } = req.body;
 
     // validateDataUsingZod
-    const validateData= StudentValidationSchema.studentValidationSchema.parse(StudentData);
+    const validateData =
+      StudentValidationSchema.studentValidationSchema.parse(StudentData);
 
     const result = await StudentServices.createStudentIntoDB(validateData);
 
@@ -16,7 +17,7 @@ const createStudent = async (req: Request, res: Response) => {
       message: 'Student is created successfully',
       data: result,
     });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     res.status(500).json({
       success: false,

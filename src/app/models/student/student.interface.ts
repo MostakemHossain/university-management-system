@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { Model } from "mongoose";
+import { Model } from 'mongoose';
 
 export type TuserName = {
   firstName: string;
@@ -27,32 +27,28 @@ export type TLocalGuardian = {
 
 export type TStudent = {
   id: string;
-  password:string,
+  password: string;
   name: TuserName;
   gender: 'Male' | 'Female' | 'Other';
   dateOfBirth: string;
   email: string;
   contactNo: string;
   emergencyContactNo: string;
-  bloodGroup?: 'A+'| 'A-'| 'B+'| 'B-'| 'O+'| 'O-'| 'AB+'| 'AB-';
+  bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'O+' | 'O-' | 'AB+' | 'AB-';
   presentAddress: string;
   permanentAddress: string;
   guardian: TGuardian;
   localGuardian: TLocalGuardian;
   profileImage: string;
   isActive: 'active' | 'blocked';
-  isDeleted?:boolean,
+  isDeleted?: boolean;
 };
 
 // for creating static
 
-export interface studentModel extends Model<TStudent>{
-  isUserExists(id:string):Promise<TStudent | null>;
-
+export interface studentModel extends Model<TStudent> {
+  isUserExists(id: string): Promise<TStudent | null>;
 }
-
-
-
 
 // for creating instance
 // export type studentMethods= {
