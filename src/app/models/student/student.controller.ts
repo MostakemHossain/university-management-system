@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { StudentServices } from './student.service';
 
 
 
 
-const getAllStudents = async (req: Request, res: Response) => {
+const getAllStudents = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const result = await StudentServices.getAllStudentFromDB();
     res.status(200).json({
@@ -13,15 +13,11 @@ const getAllStudents = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: 'Something went Wrong',
-      error: err,
-    });
+   next(err);
   }
 };
 
-const getASingleStudent = async (req: Request, res: Response) => {
+const getASingleStudent = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const { studentId } = req.params;
     const result = await StudentServices.getASingleStudentFromDB(studentId);
@@ -31,14 +27,10 @@ const getASingleStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: 'Something went Wrong',
-      error: err,
-    });
+   next(err)
   }
 };
-const deleteStudent = async (req: Request, res: Response) => {
+const deleteStudent = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const { studentId } = req.params;
     const result = await StudentServices.deleteStudentFromDB(studentId);
@@ -48,7 +40,7 @@ const deleteStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
