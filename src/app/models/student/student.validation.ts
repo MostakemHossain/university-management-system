@@ -15,7 +15,7 @@ const guardianValidationSchema = z.object({
   motherContactNo: z.string().min(1),
 });
 
-const localGuardianNameValidationSchema = z.object({
+const localGuardianValidationSchema = z.object({
   name: z.string().min(1),
   relation: z.string().min(1),
   occupation: z.string(),
@@ -23,24 +23,25 @@ const localGuardianNameValidationSchema = z.object({
   address: z.string().min(1),
 });
 
-const studentValidationSchema = z.object({
-  id: z.string(),
-  name: userNameValidationSchema,
-  gender: z.enum(['Male', 'Female', 'Other']),
-  dateOfBirth: z.string().min(1),
-  email: z.string().min(1).email({ message: 'Invalid email format' }),
-  contactNo: z.string().min(1),
-  emergencyContactNo: z.string().min(1),
-  bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']),
-  presentAddress: z.string().min(1),
-  permanentAddress: z.string().min(1),
-  guardian: guardianValidationSchema,
-  localGuardian: localGuardianNameValidationSchema,
-  profileImage: z.string().min(1),
-  isActive: z.enum(['active', 'blocked']).default('active'),
-  isDeleted: z.boolean().optional(),
+const createStudentValidationSchema = z.object({
+  body: z.object({
+    student: z.object({
+      name: userNameValidationSchema,
+      gender: z.enum(['Male', 'Female', 'Other']),
+      dateOfBirth: z.string().min(1),
+      email: z.string().min(1).email({ message: 'Invalid email format' }),
+      contactNo: z.string().min(1),
+      emergencyContactNo: z.string().min(1),
+      bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']),
+      presentAddress: z.string().min(1),
+      permanentAddress: z.string().min(1),
+      guardian: guardianValidationSchema,
+      localGuardian: localGuardianValidationSchema,
+      profileImage: z.string().min(1),
+    }),
+  }),
 });
 
-export const StudentValidationSchema = {
-  studentValidationSchema,
+export const StudentValidations = {
+   createStudentValidationSchema,
 };
