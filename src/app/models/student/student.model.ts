@@ -5,7 +5,7 @@ import {
   TGuardian,
   TLocalGuardian,
   TStudent,
-  TuserName,
+  TuserName
 } from './student.interface';
 
 const userNameSchema = new Schema<TuserName>({
@@ -150,6 +150,10 @@ const studentSchema = new Schema<TStudent, studentModel>(
     admissionSemester: {
       type: Schema.Types.ObjectId,
       ref: 'AcademicSemester',
+    },
+    academicDepartment: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicDepartment',
     },
   },
   {
