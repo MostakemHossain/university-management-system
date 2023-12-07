@@ -5,7 +5,7 @@ import {
   TGuardian,
   TLocalGuardian,
   TStudent,
-  TuserName
+  TuserName,
 } from './student.interface';
 
 const userNameSchema = new Schema<TuserName>({
@@ -83,11 +83,11 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 const studentSchema = new Schema<TStudent, studentModel>(
   {
     id: { type: String, required: [true, 'ID is Required'], unique: true },
-    user:{
-      type:Schema.Types.ObjectId,
+    user: {
+      type: Schema.Types.ObjectId,
       required: [true, 'User ID is Required'],
-      unique:true,
-      ref:'User',
+      unique: true,
+      ref: 'User',
     },
     name: { type: userNameSchema, required: true },
     gender: {
@@ -147,11 +147,10 @@ const studentSchema = new Schema<TStudent, studentModel>(
       required: [true, 'Profile Image is required'],
       trim: true,
     },
-    admissionSemester:{
-      type:Schema.Types.ObjectId,
-      ref:'AcademicSemester',
-    }
-    
+    admissionSemester: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicSemester',
+    },
   },
   {
     toJSON: {
@@ -164,8 +163,6 @@ const studentSchema = new Schema<TStudent, studentModel>(
 studentSchema.virtual('Full Name').get(function () {
   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
 });
-
-
 
 // query middleware
 studentSchema.pre('find', function (next) {
