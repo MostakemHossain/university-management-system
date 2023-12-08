@@ -106,7 +106,7 @@ const studentSchema = new Schema<TStudent, studentModel>(
     email: {
       type: String,
       required: [true, 'email is Required'],
-      unique: true,
+      unique:true,
       trim: true,
     },
     contactNo: {
@@ -155,6 +155,10 @@ const studentSchema = new Schema<TStudent, studentModel>(
       type: Schema.Types.ObjectId,
       ref: 'AcademicDepartment',
     },
+    isDeleted:{
+      type: Boolean,
+      default: false
+    }
   },
   {
     toJSON: {
@@ -193,5 +197,9 @@ studentSchema.statics.isUserExists = async function (id: string) {
   const existingUser = await Student.findOne({ id });
   return existingUser;
 };
+
+
+
+
 
 export const Student = model<TStudent, studentModel>('Student', studentSchema);

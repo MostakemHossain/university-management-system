@@ -42,7 +42,7 @@ export type TStudent = {
   profileImage: string;
   admissionSemester: Types.ObjectId;
   academicDepartment:Types.ObjectId,
-  isDeleted?: boolean;
+  isDeleted: boolean;
 };
 
 // for creating static

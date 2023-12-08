@@ -36,6 +36,12 @@ const userSchema = new Schema<TUser>(
   },
 );
 
+
+
+
+
+
+
 // pre save middleWare/ hook: will work on save(), create()
 
 userSchema.pre('save', async function (next) {
@@ -45,7 +51,6 @@ userSchema.pre('save', async function (next) {
     this.password,
     Number(config.bcrypt_salt_rounds),
   );
-
   next();
 });
 userSchema.post('save', function (doc, next) {
