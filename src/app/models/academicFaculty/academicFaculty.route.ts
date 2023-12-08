@@ -3,13 +3,12 @@ import validateRequest from '../../middlewares/validateRequest';
 import { AcademicFacultyControllers } from './academicFaculty.controller';
 import { AcademicFacultyValidation } from './academicFaculty.validation';
 
-
 const router = express.Router();
 
 router.post(
   '/create-academic-faculty',
   validateRequest(
-  AcademicFacultyValidation.createAcademicFacultyValidationSchema
+    AcademicFacultyValidation.createAcademicFacultyValidationSchema,
   ),
   AcademicFacultyControllers.createAcademicFaculty,
 );

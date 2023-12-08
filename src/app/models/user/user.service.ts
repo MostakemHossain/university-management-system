@@ -13,8 +13,6 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
   // create a user object
   const userData: Partial<TUser> = {};
 
-
-
   // if password is not given use default password
   userData.password = password || (config.default_password as string);
 
@@ -61,8 +59,7 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     await session.abortTransaction();
     await session.endSession();
 
-    throw new AppError(httpStatus.BAD_REQUEST,"Failed to create Student");
-    
+    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create Student');
   }
 };
 

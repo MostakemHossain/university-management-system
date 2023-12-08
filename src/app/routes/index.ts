@@ -32,7 +32,6 @@ const moduleRoute = [
     path: '/academic-departments',
     router: AcademicDepartmentRoutes,
   },
- 
 ];
 
 moduleRoute.forEach((route) => router.use(route.path, route.router));

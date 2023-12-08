@@ -59,7 +59,7 @@ const createStudentValidationSchema = z.object({
       guardian: createGuardianValidationSchema,
       localGuardian: createLocalGuardianValidationSchema,
       admissionSemester: z.string(),
-      academicDepartment:z.string(),
+      academicDepartment: z.string(),
       profileImage: z.string().min(1),
     }),
   }),
@@ -70,10 +70,16 @@ const updateStudentValidationSchema = z.object({
       name: updateUserNameValidationSchema,
       gender: z.enum(['Male', 'Female', 'Other']).optional(),
       dateOfBirth: z.string().optional(),
-      email: z.string().min(1).email({ message: 'Invalid email format' }).optional(),
+      email: z
+        .string()
+        .min(1)
+        .email({ message: 'Invalid email format' })
+        .optional(),
       contactNo: z.string().min(1).optional(),
       emergencyContactNo: z.string().min(1).optional(),
-      bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']).optional(),
+      bloodGroup: z
+        .enum(['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'])
+        .optional(),
       presentAddress: z.string().min(1).optional(),
       permanentAddress: z.string().min(1).optional(),
       guardian: updateGuardianValidationSchema.optional(),
@@ -87,5 +93,5 @@ const updateStudentValidationSchema = z.object({
 
 export const StudentValidations = {
   createStudentValidationSchema,
-  updateStudentValidationSchema
+  updateStudentValidationSchema,
 };

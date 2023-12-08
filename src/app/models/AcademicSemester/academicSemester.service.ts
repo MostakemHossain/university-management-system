@@ -6,7 +6,7 @@ import { AcademicSemester } from './academicSemester.model';
 
 const createAcademicSemesterIntoDB = async (payload: TAcademicSemester) => {
   if (academicSemesterCodeMapper[payload.name] !== payload.code) {
-    throw new AppError(httpStatus.NOT_FOUND,'Invalid Semester Code');
+    throw new AppError(httpStatus.NOT_FOUND, 'Invalid Semester Code');
   }
 
   const result = await AcademicSemester.create(payload);
@@ -31,7 +31,7 @@ const updateAcademicSemesterFromDB = async (
     payload.code &&
     academicSemesterCodeMapper[payload.name] !== payload.code
   ) {
-    throw new AppError(httpStatus.NOT_FOUND,'Invilid semester Code');
+    throw new AppError(httpStatus.NOT_FOUND, 'Invilid semester Code');
   }
   const result = await AcademicSemester.findOneAndUpdate({ _id: id }, payload, {
     new: true,

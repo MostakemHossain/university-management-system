@@ -13,19 +13,23 @@ const createAcademicDepartmentValidationSchema = z.object({
 });
 
 const updateAcademicDepartmentValidationSchema = z.object({
-    body: z.object({
-      name: z.string({
+  body: z.object({
+    name: z
+      .string({
         invalid_type_error: 'Academic Department Name must be string',
         required_error: 'Academic Department Name is Required',
-      }).optional(),
-      academicFaculty: z.string({
+      })
+      .optional(),
+    academicFaculty: z
+      .string({
         invalid_type_error: 'Academic Faculty must be string',
         required_error: 'Faculty  is Required',
-      }).optional(),
-    }),
-  });
+      })
+      .optional(),
+  }),
+});
 
-export const AcademicDepartmentValidation={
-    createAcademicDepartmentValidationSchema,
-    updateAcademicDepartmentValidationSchema,
-}
+export const AcademicDepartmentValidation = {
+  createAcademicDepartmentValidationSchema,
+  updateAcademicDepartmentValidationSchema,
+};
