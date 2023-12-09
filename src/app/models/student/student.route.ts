@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.get(
   '/',
-  validateRequest(StudentValidations.createStudentValidationSchema),
   StudentController.getAllStudents,
 );
 router.get('/:studentId', StudentController.getASingleStudent);
