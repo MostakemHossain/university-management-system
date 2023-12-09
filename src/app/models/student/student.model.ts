@@ -169,7 +169,7 @@ const studentSchema = new Schema<TStudent, studentModel>(
 
 // virtuals
 studentSchema.virtual('Full Name').get(function () {
-  return `${this.name?.firstName} ${this.name?.middleName} ${this.name?.lastName}`;
+  return `${this?.name?.firstName} ${this?.name?.middleName} ${this?.name?.lastName}`;
 });
 
 // query middleware
