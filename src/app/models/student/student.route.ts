@@ -4,10 +4,7 @@ import { StudentController } from './student.controller';
 import { StudentValidations } from './student.validation';
 const router = express.Router();
 
-router.get(
-  '/',
-  StudentController.getAllStudents,
-);
+router.get('/', StudentController.getAllStudents);
 router.get('/:id', StudentController.getASingleStudent);
 router.patch(
   '/:id',

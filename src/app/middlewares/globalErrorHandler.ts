@@ -18,8 +18,8 @@ const globalErrorHandler: ErrorRequestHandler = (
   next,
 ) => {
   // setting default value
-  let statusCode =  500;
-  let message =  'Something went Wrong';
+  let statusCode = 500;
+  let message = 'Something went Wrong';
 
   let errorSources: TErrorSource = [
     {
@@ -28,21 +28,18 @@ const globalErrorHandler: ErrorRequestHandler = (
     },
   ];
 
- 
-
   if (err instanceof ZodError) {
     const simplifiedError = handleZodError(err);
 
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
-  }else if(err?.message==='ValidationError'){
+  } else if (err?.message === 'ValidationError') {
     const simplifiedError = handleValidationError(err);
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
-
-  }else if (err?.name === 'CastError') {
+  } else if (err?.name === 'CastError') {
     const simplifiedError = handleCastError(err);
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
@@ -52,36 +49,31 @@ const globalErrorHandler: ErrorRequestHandler = (
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
-  } 
-   else if (err instanceof AppError) {
-    
+  } else if (err instanceof AppError) {
     statusCode = err?.statusCode;
     message = err?.message;
     errorSources = [
       {
-        path:'',
-        message:err?.message
-      }
-    ]
-  } 
-   else if (err instanceof Error) {
-    
+        path: '',
+        message: err?.message,
+      },
+    ];
+  } else if (err instanceof Error) {
     message = err?.message;
     errorSources = [
       {
-        path:'',
-        message:err?.message
-      }
-    ]
-  } 
+        path: '',
+        message: err?.message,
+      },
+    ];
+  }
 
   return res.status(statusCode).send({
     success: false,
     statusCode,
     message,
     errorSources,
-    stack: config.NODE_ENV==='development'? err?.stack: null
-
+    stack: config.NODE_ENV === 'development' ? err?.stack : null,
   });
 };
 

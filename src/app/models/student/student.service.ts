@@ -52,7 +52,6 @@ const getAllStudentFromDB = async (query: Record<string, unknown>) => {
   //   }
 
   //   const paginateQuery=  sortQuery.skip(skip);
-   
 
   //   const limitQuery= paginateQuery.limit(limit);
 
@@ -67,21 +66,27 @@ const getAllStudentFromDB = async (query: Record<string, unknown>) => {
 
   //   return fieldQuery;
 
-  const studentQuery= new QueryBuilder(Student.find()   .populate('admissionSemester')
-     .populate({
-       path: 'academicDepartment',
-     populate: { path: 'academicFaculty' },
-     }),query).search(studentSearchAbleField).filter().sort().paginate().fields();
+  const studentQuery = new QueryBuilder(
+    Student.find()
+      .populate('admissionSemester')
+      .populate({
+        path: 'academicDepartment',
+        populate: { path: 'academicFaculty' },
+      }),
+    query,
+  )
+    .search(studentSearchAbleField)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
 
-  const result= await studentQuery.modelQuery;
+  const result = await studentQuery.modelQuery;
   return result;
-
-
-
 };
 
 const getASingleStudentFromDB = async (id: string) => {
-  const result = await Student.findById( id )
+  const result = await Student.findById(id)
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
@@ -113,7 +118,7 @@ const updateStudentFromDB = async (id: string, payload: Partial<TStudent>) => {
     }
   }
 
-  const result = await Student.findByIdAndUpdate( id , modifiedUpdatedData, {
+  const result = await Student.findByIdAndUpdate(id, modifiedUpdatedData, {
     new: true,
     runValidators: true,
   });
@@ -126,7 +131,7 @@ const deleteStudentFromDB = async (id: string) => {
   try {
     session.startTransaction();
     const deletedStudent = await Student.findByIdAndUpdate(
-       id ,
+      id,
       {
         isDeleted: true,
       },
@@ -143,7 +148,7 @@ const deleteStudentFromDB = async (id: string) => {
     const userId = deletedStudent._id;
 
     const deletedUser = await User.findByIdAndUpdate(
-       userId ,
+      userId,
       {
         isDeleted: true,
       },

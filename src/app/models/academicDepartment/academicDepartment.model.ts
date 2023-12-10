@@ -8,9 +8,8 @@ const academicDepartmentSchema = new Schema<TAcademicDepartment>(
   {
     name: {
       type: String,
-      require: [true,'Academic Depertment name is Required'],
+      require: [true, 'Academic Depertment name is Required'],
       unique: true,
-
     },
     academicFaculty: {
       type: Schema.Types.ObjectId,
