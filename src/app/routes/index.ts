@@ -3,6 +3,7 @@ import { AcademicSemesterRoutes } from '../models/AcademicSemester/academicSemes
 import { AcademicDepartmentRoutes } from '../models/academicDepartment/academicDepartment.route';
 import { AcademicFacultyRoutes } from '../models/academicFaculty/academicFaculty.route';
 import { CourseRoute } from '../models/course/course.route';
+import { semesterRegistrationRoutes } from '../models/semesterRegistration/semesterRegistration.route';
 import { StudentRoutes } from '../models/student/student.route';
 import { UserRoutes } from '../models/user/user.route';
 
@@ -37,6 +38,11 @@ const moduleRoute = [
     path: '/courses',
     router: CourseRoute,
   },
+  {
+    path: '/semester-registrations',
+    router: semesterRegistrationRoutes,
+  },
+  
 ];
 
 moduleRoute.forEach((route) => router.use(route.path, route.router));
