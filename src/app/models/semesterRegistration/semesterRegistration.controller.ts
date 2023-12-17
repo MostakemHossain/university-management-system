@@ -7,6 +7,7 @@ import { semesterRegistrationService } from "./semesterRegistration.service";
 const createSemesterRegistration= catchAsync(async (req:Request,res:Response)=>{
 
     const result= await semesterRegistrationService.createSemesterRegistrationIntoDB(req.body);
+    
     sendResponse(res,{
         statusCode:httpStatus.OK,
         success:true,

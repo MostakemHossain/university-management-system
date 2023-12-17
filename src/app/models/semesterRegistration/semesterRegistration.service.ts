@@ -9,6 +9,24 @@ const createSemesterRegistrationIntoDB = async (
   payload: TSemesterRegistration, 
 ) => {
   const academicSemester = payload?.academicSemester;
+
+
+  // check if there any registered semester that is already "UPCOMING"|"ONGOING"
+  const isThereAnyUpcomingOROngingSemester= await SemesterRegistration.findOne({
+    $or:[
+      {status:'UPCOMING'},
+      {status:'ONGOING'},
+    ]
+  })
+  if(isThereAnyUpcomingOROngingSemester){
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      `There is already an ${isThereAnyUpcomingOROngingSemester.status} registered semester!!`,
+    );
+  }
+
+
+
   // check is the semester is exist
   const isAcademicSemesterExists =
     await AcademicSemester.findById(academicSemester);
