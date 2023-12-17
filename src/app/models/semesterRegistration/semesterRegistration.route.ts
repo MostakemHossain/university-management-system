@@ -13,7 +13,7 @@ router.post('/create-semester-registration',
 
 router.get('/',semesterRegistrationController.getAllSemesterRegistration);
 router.get('/:id',semesterRegistrationController.getSingleSemesterRegistration);
-router.patch('/id',
+router.patch('/:id',
     validateRequest(semesterRegistrationValidation.updateSemesterRegistrationValidationSchema),
     semesterRegistrationController.updateSemesterRegistration
 )
