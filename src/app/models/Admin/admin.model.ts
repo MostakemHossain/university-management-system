@@ -98,4 +98,4 @@ adminSchema.virtual('fullName').get(function () {
     this?.name?.lastName
   );
 });
-const Admin = model<TAdmin>('Admin', adminSchema);
+export const Admin = model<TAdmin>('Admin', adminSchema);
