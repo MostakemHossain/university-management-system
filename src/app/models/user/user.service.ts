@@ -11,6 +11,7 @@ import { AcademicDepartment } from '../academicDepartment/academicDepartment.mod
 import { TStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
 
+import { AcademicSemester } from '../AcademicSemester/academicSemester.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
 import {
@@ -18,7 +19,6 @@ import {
   generateFacultyId,
   generateStudentId,
 } from './user.utils';
-import { AcademicSemester } from '../AcademicSemester/academicSemester.model';
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
   // create a user object

@@ -9,4 +9,5 @@ export default {
   NODE_ENV: process.env.NODE_ENV,
   bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
   default_password: process.env.DEFAULT_PASSWORD,
+  jwt_access_serect:process.env.JWT_ACCESS_SERECT
 };
