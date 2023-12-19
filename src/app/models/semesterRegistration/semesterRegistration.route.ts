@@ -1,21 +1,41 @@
-import express from "express";
-import validateRequest from "../../middlewares/validateRequest";
-import { semesterRegistrationController } from "./semesterRegistration.controller";
-import { semesterRegistrationValidation } from "./semesterRegistration.validation";
+import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
+import { SemesterRegistrationController } from './semesterRegistration.controller';
+import { SemesterRegistrationValidations } from './semesterRegistration.validation';
 
-const router= express.Router();
+const router = express.Router();
 
+router.post(
+  '/create-semester-registration',
+  validateRequest(
+    SemesterRegistrationValidations.createSemesterRegistrationValidationSchema,
+  ),
+  SemesterRegistrationController.createSemesterRegistration,
+);
 
-router.post('/create-semester-registration',
-    validateRequest(semesterRegistrationValidation.createSemesterRegistrationValidationSchema)
-    , semesterRegistrationController.createSemesterRegistration
-)
+router.get(
+  '/:id',
+  SemesterRegistrationController.getSingleSemesterRegistration,
+);
 
-router.get('/',semesterRegistrationController.getAllSemesterRegistration);
-router.get('/:id',semesterRegistrationController.getSingleSemesterRegistration);
-router.patch('/:id',
-    validateRequest(semesterRegistrationValidation.updateSemesterRegistrationValidationSchema),
-    semesterRegistrationController.updateSemesterRegistration
-)
+router.patch(
+  '/:id',
+  validateRequest(
+    SemesterRegistrationValidations.upadateSemesterRegistrationValidationSchema,
+  ),
+  SemesterRegistrationController.updateSemesterRegistration,
+);
 
-export const semesterRegistrationRoutes= router;
+router.get(
+  '/:id',
+  SemesterRegistrationController.getSingleSemesterRegistration,
+);
+
+router.delete(
+  '/:id',
+  SemesterRegistrationController.deleteSemesterRegistration,
+);
+
+router.get('/', SemesterRegistrationController.getAllSemesterRegistrations);
+
+export const semesterRegistrationRoutes = router;

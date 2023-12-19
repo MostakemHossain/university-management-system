@@ -9,6 +9,7 @@ import { semesterRegistrationRoutes } from '../models/semesterRegistration/semes
 import { StudentRoutes } from '../models/student/student.route';
 import { UserRoutes } from '../models/user/user.route';
 import { AdminRoutes } from '../models/Admin/admin.route';
+import { FacultyRoutes } from '../models/Faculty/faculty.route';
 
 const router = express.Router();
 
@@ -24,6 +25,11 @@ const moduleRoute = [
   {
     path: '/admins',
     router: AdminRoutes,
+
+  },
+  {
+    path: '/faculties',
+    router: FacultyRoutes,
 
   },
   {
