@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { Model, Types } from 'mongoose';
+import { Types } from 'mongoose';
 
 export type TuserName = {
   firstName: string;
@@ -45,15 +45,3 @@ export type TStudent = {
   isDeleted: boolean;
 };
 
-// for creating static
-
-export interface studentModel extends Model<TStudent> {
-  isUserExists(id: string): Promise<TStudent | null>;
-}
-
-// for creating instance
-// export type studentMethods= {
-//   isUserExists(id:string):Promise<TStudent | null>;
-// }
-
-// export type studentModel=Model<TStudent,Record<string, never>,studentMethods>;
