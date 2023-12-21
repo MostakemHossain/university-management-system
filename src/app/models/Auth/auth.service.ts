@@ -1,9 +1,9 @@
 import httpStatus from "http-status";
+import jwt from "jsonwebtoken";
+import config from "../../config";
 import AppError from "../../errors/AppError";
 import { User } from "../user/user.model";
 import { TLoginUser } from "./auth.interface";
-import jwt from "jsonwebtoken"
-import config from "../../config";
 
 const loginUser= async(payload:TLoginUser)=>{
     // if the user is exists
@@ -21,6 +21,7 @@ const loginUser= async(payload:TLoginUser)=>{
     if(userStatus==="blocked"){
         throw new AppError(httpStatus.FORBIDDEN,"This user is blocked!");
     }
+   
 
     // checking password
    if(!(await User.isPasswordMatch(payload?.password,user?.password))){

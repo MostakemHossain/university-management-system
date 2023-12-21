@@ -62,5 +62,9 @@ userSchema.statics.isPasswordMatch= async function(plainTextPassword:string,hash
   return await bcrypt.compare(plainTextPassword,hashedPassword);
 }
 
+userSchema.statics.isUserDeleted= async function(id:string){
+  return await User.findOne({id});
+}
+
 
 export const User = model<TUser,UserModel>('User', userSchema);
