@@ -1,4 +1,4 @@
-import {z} from "zod"
+import { z } from "zod"
 
 const loginValidationSchema= z.object({
     body:z.object({
@@ -6,7 +6,14 @@ const loginValidationSchema= z.object({
         password:z.string({required_error:'Password is Required'}),
     })
 })
+const changePasswordValidationSchema= z.object({
+    body:z.object({
+        oldPassword:z.string({required_error:"Old Password is Required."}),
+        newPassword:z.string({required_error:'Password is Required'}),
+    })
+})
 
 export const AuthValidation={
-    loginValidationSchema
+    loginValidationSchema,
+    changePasswordValidationSchema
 }
