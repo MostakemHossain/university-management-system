@@ -1,7 +1,7 @@
 import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
 import { createAdminValidationSchema } from '../Admin/admin.validation';
-import { createFacultyValidationSchema } from '../Faculty/faculty.validation';
+import { facultyValidations } from '../Faculty/faculty.validation';
 
 import auth from '../../middlewares/auth';
 import { StudentValidations } from '../student/student.validation';
@@ -20,7 +20,7 @@ router.post(
 router.post(
   '/create-faculty',
   auth(USER_ROLE.admin),
-  validateRequest(createFacultyValidationSchema),
+  validateRequest(facultyValidations.createFacultyValidationSchema),
   UserControllers.createFaculty,
 );
 

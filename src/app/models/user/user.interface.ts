@@ -18,4 +18,6 @@ export interface UserModel extends Model<TUser>{
 
   isUserExistsByCustomID(id:string):Promise<TUser>;
   isPasswordMatch(plainTextPassword:string,hashedPassword:string):Promise<boolean>;
+
+  isJWTIssuedBeforePasswordChanged(passwordChangeTimeStamp:Date,jwtIssuesTimeStamp:number):boolean;
 }
