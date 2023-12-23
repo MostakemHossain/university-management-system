@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { model, Schema } from 'mongoose';
 import {
-  studentModel,
   TGuardian,
   TLocalGuardian,
   TStudent,
@@ -80,7 +79,7 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
   },
 });
 
-const studentSchema = new Schema<TStudent, studentModel>(
+const studentSchema = new Schema<TStudent>(
   {
     id: { type: String, required: [true, 'ID is Required'], unique: true },
     user: {
@@ -198,4 +197,4 @@ studentSchema.statics.isUserExists = async function (id: string) {
   return existingUser;
 };
 
-export const Student = model<TStudent, studentModel>('Student', studentSchema);
+export const Student = model<TStudent>('Student', studentSchema);

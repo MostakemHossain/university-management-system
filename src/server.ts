@@ -17,8 +17,8 @@ async function main() {
   }
 }
 
-process.on('unhandledRejection', () => {
-  console.log('unhandledRejection is Detected. Sutting down.......');
+process.on('unhandledRejection', (err) => {
+  console.log('unhandledRejection is Detected. Sutting down.......',err);
 
   if (server) {
     server.close(() => {
