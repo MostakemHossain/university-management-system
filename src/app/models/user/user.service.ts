@@ -47,8 +47,11 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     //set  generated id
     userData.id = await generateStudentId(admissionSemester);
 
+    // const imageName= `${userData.id}${payload?.name?.firstName}`;
+    // const path=file?.path;
+    // const {secure_url}= await sendImageToCloudinary(imageName,path);
     
-    
+
     // create a user (transaction-1)
     const newUser = await User.create([userData], { session }); // array
 
@@ -59,6 +62,7 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     // set id , _id as user
     payload.id = newUser[0].id;
     payload.user = newUser[0]._id; //reference _id
+    // payload.profileImage=secure_url;
 
     // create a student (transaction-2)
 
@@ -148,6 +152,7 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
   userData.email = payload.email;
 
   const session = await mongoose.startSession();
+ 
 
   try {
     session.startTransaction();

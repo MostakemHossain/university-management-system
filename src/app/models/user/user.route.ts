@@ -4,7 +4,6 @@ import { createAdminValidationSchema } from '../Admin/admin.validation';
 import { facultyValidations } from '../Faculty/faculty.validation';
 
 import auth from '../../middlewares/auth';
-import { StudentValidations } from '../student/student.validation';
 import { USER_ROLE } from './user.constant';
 import { UserControllers } from './user.controller';
 import { UserValidation } from './user.validation';
@@ -14,7 +13,12 @@ const router = express.Router();
 router.post(
   '/create-student',
   auth(USER_ROLE.admin),
-  validateRequest(StudentValidations.createStudentValidationSchema),
+  // upload.single('file'),
+  // (req: Request, res: Response, next: NextFunction) => {
+  //   req.body = JSON.parse(req.body.data);
+  //   next();
+  // },
+  // validateRequest(StudentValidations.createStudentValidationSchema),
   UserControllers.createStudent,
 );
 
@@ -30,16 +34,13 @@ router.post(
   validateRequest(createAdminValidationSchema),
   UserControllers.createAdmin,
 );
-router.get(
-  '/me',
-  auth('admin','faculty','student'),
-  UserControllers.getMe,
-);
+router.get('/me', auth('admin', 'faculty', 'student'), UserControllers.getMe);
 
-router.post('/change-status/:id',
+router.post(
+  '/change-status/:id',
   auth('admin'),
   validateRequest(UserValidation.changedStatusValidationSchema),
-  UserControllers.changeStatus
-)
+  UserControllers.changeStatus,
+);
 
 export const UserRoutes = router;

@@ -1,16 +1,49 @@
 import { v2 as cloudinary } from 'cloudinary';
+import fs from 'fs';
+import multer from 'multer';
+import config from '../config';
 
-export const sentImageToCloudinary = () => {
-  cloudinary.config({
-    cloud_name: 'dbhmlaa1l',
-    api_key: '538181817291555',
-    api_secret: 'npigsT7v6eidtdRrVcQbVfSnQII',
+cloudinary.config({
+  cloud_name: config.cloudinary_cloud_name,
+  api_key: config.cloudinary_api_key,
+  api_secret: config.cloudinary_serect_key,
+});
+
+export const sendImageToCloudinary = async (
+  imageName: string,
+  path: string,
+) => {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.upload(
+      path,
+      { public_id: imageName },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+
+          fs.unlink(path, (err) => {
+            if (err) {
+              reject(err);
+            } else {
+              console.log('File is deleted');
+            }
+          });
+        }
+      },
+    );
   });
-  cloudinary.uploader.upload(
-    'https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg',
-    { public_id: 'olympic_flag' },
-    function (error, result) {
-      console.log(result);
-    },
-  );
 };
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, process.cwd() + '/uploads/');
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + '-' + uniqueSuffix);
+  },
+});
+
+export const upload = multer({ storage: storage });
